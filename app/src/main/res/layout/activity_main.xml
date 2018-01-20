@@ -8,7 +8,32 @@
     android:orientation="vertical"
     android:background="@drawable/background1">
 
+    <ImageButton
+        android:id="@+id/ib_vote_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/vote_button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="200dp"
+        android:backgroundTint="@color/colorTrans"
+        android:contentDescription="@string/vote_button"
+        android:rotation="340"
+        android:paddingEnd="20dp">
+    </ImageButton>
 
+    <ImageButton
+        android:id="@+id/ib_shoot_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/shoot_button"
+        android:backgroundTint="@color/colorTrans"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="00dp"
+        android:paddingStart="40dp"
+        android:rotation="340"
+        android:contentDescription="@string/shoot_button"
+        android:onClick="openCamera">
+    </ImageButton>
 
 
 </LinearLayout>
