@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         // Get a URL to the uploaded content
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         Toast.makeText(getApplication().getApplicationContext(),
-                                "upload was successful", Toast.LENGTH_LONG).show();
+                                "upload was successful ", Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
