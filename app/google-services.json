@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "712384435743",
+    "firebase_url": "https://traxpurim.firebaseio.com",
+    "project_id": "traxpurim",
+    "storage_bucket": "traxpurim.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712384435743:android:c6056418471942c4",
+        "android_client_info": {
+          "package_name": "com.trax.purim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712384435743-v58124l2r8f07fvts0s1eekj2m3b0g65.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trax.purim",
+            "certificate_hash": "86dd008e8bcc7ea3709120130a9165403595e69a"
+          }
+        },
+        {
+          "client_id": "712384435743-qm1ivoj00m6fd6eb8s6vnmlv4hg4a3dd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiPHRY5OXgS9tjCjJsl-gAjvyVbblFWeM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712384435743-qm1ivoj00m6fd6eb8s6vnmlv4hg4a3dd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
