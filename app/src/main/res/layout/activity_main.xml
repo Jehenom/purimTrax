@@ -6,34 +6,39 @@
     android:layout_height="match_parent"
     tools:context="com.trax.purim.MainActivity"
     android:orientation="vertical"
-    android:background="@drawable/background1">
+    android:background="@drawable/background1"
+    >
 
-    <ImageButton
-        android:id="@+id/ib_vote_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/vote_button"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="200dp"
-        android:backgroundTint="@color/colorTrans"
-        android:contentDescription="@string/vote_button"
-        android:rotation="340"
-        android:paddingEnd="20dp">
-    </ImageButton>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom">
 
-    <ImageButton
-        android:id="@+id/ib_shoot_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/shoot_button"
-        android:backgroundTint="@color/colorTrans"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="00dp"
-        android:paddingStart="40dp"
-        android:rotation="340"
-        android:contentDescription="@string/shoot_button"
-        android:onClick="openCamera">
-    </ImageButton>
+        <ImageButton
+            android:id="@+id/ib_vote_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vote_button"
+            android:backgroundTint="@color/colorTrans"
+            android:contentDescription="@string/vote_button"
+            android:padding="40dp"
+            android:rotation="-25">
+        </ImageButton>
 
-
+        <ImageButton
+            android:id="@+id/ib_shoot_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shoot_button"
+            android:backgroundTint="@color/colorTrans"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="00dp"
+            android:contentDescription="@string/shoot_button"
+            android:onClick="openCamera"
+            android:paddingBottom="100dp"
+            android:paddingStart="80dp"
+            android:rotation="-25">
+        </ImageButton>
+    </LinearLayout>
 </LinearLayout>
