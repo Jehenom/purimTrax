@@ -1,44 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.trax.purim.MainActivity"
-    android:orientation="vertical"
     android:background="@drawable/background1"
-    >
+    tools:context="com.trax.purim.MainActivity"
+    tools:layout_editor_absoluteY="81dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom">
-
-        <ImageButton
-            android:id="@+id/ib_vote_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/vote_button"
-            android:backgroundTint="@color/colorTrans"
-            android:contentDescription="@string/vote_button"
-            android:padding="40dp"
-            android:rotation="-25">
-        </ImageButton>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="361dp"
+        android:layout_height="564dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <ImageButton
             android:id="@+id/ib_shoot_button"
-            android:layout_width="match_parent"
+            android:layout_width="325dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/shoot_button"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:adjustViewBounds="true"
             android:backgroundTint="@color/colorTrans"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="00dp"
             android:contentDescription="@string/shoot_button"
+            android:cropToPadding="false"
             android:onClick="openCamera"
-            android:paddingBottom="100dp"
-            android:paddingStart="80dp"
-            android:rotation="-25">
-        </ImageButton>
-    </LinearLayout>
-</LinearLayout>
+            android:rotation="-25"
+            android:src="@drawable/shoot_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/ib_vote_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorTrans"
+            android:contentDescription="@string/vote_button"
+            android:rotation="-25"
+            android:src="@drawable/vote_button"
+            app:layout_constraintBottom_toTopOf="@+id/ib_shoot_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.89"></ImageButton>
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

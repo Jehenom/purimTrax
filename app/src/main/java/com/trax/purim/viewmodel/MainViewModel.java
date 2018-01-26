@@ -7,8 +7,10 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,26 +45,29 @@ public class MainViewModel extends ViewModel {
         return image;
     }
 
-    public void uploadToFirebase(final Context context){
+    public void uploadToFirebase(final Context context) {
         File currFile = new File(mCurrentPhotoPath);
         Uri file = Uri.fromFile(currFile);
-        StorageReference tempRef = mStorageRef.child("images/"+currFile.getName());
+        StorageReference tempRef = mStorageRef.child("images/" + currFile.getName());
 
         tempRef.putFile(file)
-                .addOnSuccessListener(taskSnapshot -> {
-                    // Get a URL to the uploaded content
-                    Toast.makeText(context,
-                            "upload was successful" , Toast.LENGTH_LONG).show();
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(context,
+                            "upload was successful", Toast.LENGTH_LONG).show();
+                    }}
+                ).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                     // Handle unsuccessful uploads
-                    Toast.makeText(context,
-                            "upload was not successful: "+exception.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
+                        Toast.makeText(context,
+                            "upload was not successful: " + exception.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                    }}
+        );
+    }}
 
 
-}
+
+
