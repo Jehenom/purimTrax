@@ -1,16 +1,23 @@
 package com.trax.purim;
 
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.otaliastudios.cameraview.CameraListener;
-import com.otaliastudios.cameraview.CameraUtils;
 import com.otaliastudios.cameraview.CameraView;
-import com.trax.purim.viewmodel.MainViewModel;
+import com.otaliastudios.cameraview.Gesture;
+import com.otaliastudios.cameraview.GestureAction;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Nadir Elmakias on 1/24/2018.
@@ -21,24 +28,56 @@ public class CameraActivity extends AppCompatActivity{
     private CameraView cameraView;
     private ImageButton takePictureButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         cameraView = findViewById(R.id.camera);
         takePictureButton = findViewById(R.id.ib_take_picture_button);
+        cameraView.mapGesture(Gesture.PINCH, GestureAction.ZOOM); // Pinch to zoom!
+        cameraView.mapGesture(Gesture.TAP, GestureAction.FOCUS_WITH_MARKER); // Tap to focus!
         takePictureButton.setOnClickListener(v -> takePicture(v));
         cameraView.addCameraListener(new CameraListener() {
             @Override
             public void onPictureTaken(byte[] picture) {
-                // Create a bitmap or a file...
-                // CameraUtils will read EXIF orientation for you, in a worker thread.
-//                CameraUtils.decodeBitmap(picture, Bitmap::prepareToDraw);
-                Toast.makeText(getApplicationContext(), "picture taken",Toast.LENGTH_LONG).show();
+                String fileName = saveImage(picture);
+                openViewer(fileName);
             }
         });
 
+    }
+
+    private String saveImage(byte[] picture) {
+        File imageFile;
+        try {
+            imageFile = createImageFile(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(imageFile));
+            bos.write(picture);
+            bos.flush();
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+        return imageFile.getAbsolutePath();
+    }
+
+    private void openViewer(String fileName){
+        Intent openImageViewIntent = new Intent(this, ImageViewActivity.class);
+        openImageViewIntent.putExtra("image_file", fileName);
+        startActivity(openImageViewIntent);
+    }
+
+    public File createImageFile(File storageDir) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        return image;
     }
 
     @Override
