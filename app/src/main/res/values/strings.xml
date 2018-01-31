@@ -2,4 +2,5 @@
     <string name="app_name">Purim @ Trax</string>
     <string name="vote_button">VOTE!</string>
     <string name="shoot_button">SHOOT!</string>
+    <string name="send_to">Send to</string>
 </resources>

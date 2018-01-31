@@ -20,30 +20,11 @@ import java.io.File;
 
 public class MainViewModel extends ViewModel {
 
-    private StorageReference mStorageRef;
-    private String mCurrentPhotoPath;
-
     public MainViewModel(){
-        mStorageRef = FirebaseStorage.getInstance().getReference();
 
     }
 
-    public void uploadToFirebase(final Context context) {
-        File currFile = new File(mCurrentPhotoPath);
-        Uri file = Uri.fromFile(currFile);
-        StorageReference tempRef = mStorageRef.child("images/" + currFile.getName());
-
-        tempRef.putFile(file)
-                .addOnSuccessListener(taskSnapshot -> Toast.makeText(context,
-                    "upload was successful", Toast.LENGTH_LONG).show()
-                ).addOnFailureListener(exception -> {
-                // Handle unsuccessful uploads
-                    Toast.makeText(context,
-                        "upload was not successful: " + exception.getMessage(),
-                        Toast.LENGTH_LONG).show();
-                }
-        );
-    }}
+}
 
 
 
