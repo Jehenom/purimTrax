@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.Gravity;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -32,20 +33,20 @@ public class ImageViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_view);
+        getSupportActionBar().hide();
         Intent getStringIntent = getIntent();
         Bundle bundle = getStringIntent.getExtras();
         filePath = bundle.getString("image_file");
-        Uri photoUri = Uri.parse("file://"+filePath);
-        SimpleDraweeView draweeView =  findViewById(R.id.imageView);
-        draweeView.setImageURI(photoUri);
+        Uri uri = Uri.parse("file://"+filePath);
+        SimpleDraweeView draweeView = findViewById(R.id.imageView);
+        draweeView.setImageURI(uri);
 
         ShareButton = findViewById(R.id.ShareButton);
-        ShareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri photoUri = Uri.parse("file://"+filePath);
-                dispatchShareIntent(photoUri);
-            }
+        ShareButton.setOnClickListener(v -> {
+            Uri photoUri = FileProvider.getUriForFile(ImageViewActivity.this,
+                    ImageViewActivity.this.getApplicationContext().getPackageName() +
+                            ".fileprovider", new File(filePath));
+            dispatchShareIntent(photoUri);
         });
 
         DeleteButton = findViewById(R.id.DeleteButton);
@@ -56,7 +57,11 @@ public class ImageViewActivity extends AppCompatActivity {
         UploadButton = findViewById(R.id.UploadButton);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         UploadButton.setOnClickListener(v -> uploadToFirebase(ImageViewActivity.this));
+    }
 
+    @Override
+    public void onBackPressed(){
+        deleteFile();
     }
 
     private void deleteFile() {
@@ -82,15 +87,21 @@ public class ImageViewActivity extends AppCompatActivity {
         StorageReference tempRef = mStorageRef.child("images/" + currFile.getName());
 
         tempRef.putFile(file)
-                .addOnSuccessListener(taskSnapshot -> Toast.makeText(context,
-                        "upload was successful", Toast.LENGTH_LONG).show()
+                .addOnSuccessListener(taskSnapshot -> {
+                    runOnUiThread(() -> Toast.makeText(context, "upload was successful",
+                                                       Toast.LENGTH_LONG).show());
+                }
                 ).addOnFailureListener(exception -> {
                     // Handle unsuccessful uploads
-                    Toast.makeText(context,
-                            "upload was not successful: " + exception.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                }
-        );
+                    Toast.makeText(context,"upload was not successful: " + exception.getMessage(),
+                                   Toast.LENGTH_LONG).show();
+
+
+                });
+        Toast toast = Toast.makeText(context,"UPLOADING", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
+        finish();
     }
 }
 

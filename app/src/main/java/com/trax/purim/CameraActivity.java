@@ -33,6 +33,7 @@ public class CameraActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         cameraView = findViewById(R.id.camera);
+        getSupportActionBar().hide();
         takePictureButton = findViewById(R.id.ib_take_picture_button);
         cameraView.mapGesture(Gesture.PINCH, GestureAction.ZOOM); // Pinch to zoom!
         cameraView.mapGesture(Gesture.TAP, GestureAction.FOCUS_WITH_MARKER); // Tap to focus!
@@ -99,6 +100,6 @@ public class CameraActivity extends AppCompatActivity{
     }
 
     public void takePicture(View view){
-       cameraView.capturePicture();
+        cameraView.capturePicture();
     }
 }

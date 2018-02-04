@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewmodel = ViewModelProviders.of(this).get(MainViewModel.class);
+        getSupportActionBar().hide();
     }
 
     /** Called when the user touches the button */
