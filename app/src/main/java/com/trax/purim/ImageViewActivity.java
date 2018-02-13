@@ -57,6 +57,8 @@ public class ImageViewActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         UploadButton.setOnClickListener(v -> uploadToFirebase(ImageViewActivity.this));
 
+        getSupportActionBar().hide();
+
     }
 
     private void deleteFile() {

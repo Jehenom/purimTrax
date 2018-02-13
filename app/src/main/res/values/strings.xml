@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">Purim @ Trax</string>
-    <string name="vote_button">VOTE!</string>
-    <string name="shoot_button">SHOOT!</string>
+    <string name="app_name">Trax in Wonderland</string>
+    <string name="vote_button">VOTE</string>
+    <string name="shoot_button">TAKE PHOTO</string>
     <string name="send_to">Send to</string>
+    <string name="login_with_email">Login With Email</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="choose">Choose your favorite costume</string>
+    <string name="thanks">Thanks For Voting</string>
 </resources>

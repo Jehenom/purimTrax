@@ -44,6 +44,7 @@ public class CameraActivity extends AppCompatActivity{
                 openViewer(fileName);
             }
         });
+        getSupportActionBar().hide();
 
     }
 

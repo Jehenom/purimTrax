@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import com.trax.purim.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,14 +14,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         viewmodel = ViewModelProviders.of(this).get(MainViewModel.class);
+        findViewById(R.id.home_vote_btn).setOnClickListener(v-> openVoting());
+        findViewById(R.id.home_take_photo_btn).setOnClickListener(v-> openCamera(v));
+
+        getSupportActionBar().hide();
     }
 
-    /** Called when the user touches the button */
+    private void openVoting() {
+        Intent openActivityIntent = new Intent(this, VoteActivity.class);
+        startActivity(openActivityIntent);
+    }
+
     public void openCamera(View view) {
-        // open camera in response to button click
         Intent openCameraViewIntent = new Intent(this, CameraActivity.class);
         startActivity(openCameraViewIntent);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("EXIT", true);
+        startActivity(intent);
     }
 }

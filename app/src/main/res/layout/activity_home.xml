@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/home_screen_bg"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/home_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:src="@drawable/home_screen_img"/>
+
+    <LinearLayout
+        android:id="@+id/home_buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:background="@color/tomato"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/home_vote_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/tomato"
+            android:fontFamily="@font/little_lord"
+            android:letterSpacing="0.02"
+            android:text="@string/vote_button"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/home_take_photo_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/tomato"
+            android:fontFamily="@font/little_lord"
+            android:letterSpacing="0.02"
+            android:text="@string/shoot_button"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
