@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -40,12 +39,9 @@ public class ImageViewActivity extends AppCompatActivity {
         draweeView.setImageURI(photoUri);
 
         ShareButton = findViewById(R.id.ShareButton);
-        ShareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri photoUri = Uri.parse("file://"+filePath);
-                dispatchShareIntent(photoUri);
-            }
+        ShareButton.setOnClickListener(v -> {
+            Uri photoUri1 = Uri.parse("file://"+filePath);
+            dispatchShareIntent(photoUri1);
         });
 
         DeleteButton = findViewById(R.id.DeleteButton);

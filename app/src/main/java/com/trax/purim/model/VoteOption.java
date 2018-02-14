@@ -1,8 +1,5 @@
 package com.trax.purim.model;
 
-import android.os.Parcelable;
-
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 /**

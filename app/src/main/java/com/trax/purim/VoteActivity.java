@@ -9,9 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.google.gson.Gson;
 import com.trax.purim.fragment.VoteOptionFragment;
-import com.trax.purim.model.VoteOption;
 import com.trax.purim.viewmodel.VoteViewModel;
 
 import java.util.ArrayList;
@@ -49,9 +47,6 @@ public class VoteActivity extends AppCompatActivity {
                 }
             });
         });
-
-//        overridePendingTransition(R.anim.fadein, 0);
-
         getSupportActionBar().hide();
     }
 
@@ -91,43 +86,5 @@ public class VoteActivity extends AppCompatActivity {
             return fragments.size();
         }
 
-
-//        @Override
-//        public int getCount() {
-//            return viewModel.getNumberOfPictures();
-//        }
-//
-//        @Override
-//        public Fragment getItem(int position) {
-//
-//            return fragments.get(position);
-//        }
-//
-//        @Override
-//        public boolean isViewFromObject(View view, Object object) {
-//            return false;
-//        }
-//
-//        @Override
-//        public Object instantiateItem(ViewGroup container, int position){
-////            return fragments.get(position);
-//            if (fragments.size() > position) {
-//                Fragment f = fragments.get(position);
-//                if (f != null) {
-//                    return f;
-//                }
-//            }
-//
-//            if (mCurTransaction == null) {
-//                mCurTransaction = getFragmentManager().beginTransaction();
-//            }
-//
-//            Fragment fragment = getItem(position);
-//
-//            fragments.set(position, fragment);
-//            container.addView(fragment.getView());
-//
-//            return fragment;
-//        }
     }
 }
