@@ -59,13 +59,13 @@ public class VoteActivity extends AppCompatActivity {
         return res;
     }
 
-   public void animOff(){
+    public void animOff(){
         findViewById(R.id.loader).setVisibility(View.GONE);
    }
 
-    public void vote(int id){
-        viewModel.vote(id);
-    }
+    public void vote(int id){ viewModel.vote(id);}
+
+    public int getVotedId() {return viewModel.getVoted();}
 
     private class VotePageAdapter extends FragmentPagerAdapter{
 

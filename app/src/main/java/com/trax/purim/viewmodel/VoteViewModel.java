@@ -7,17 +7,13 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.trax.purim.model.VoteOption;
-import com.trax.purim.model.VoteOptionsModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,15 +24,17 @@ import java.util.List;
 
 public class VoteViewModel extends AndroidViewModel {
 
-    DatabaseReference ref;
+    DatabaseReference voteOptionsRef;
+    DatabaseReference selectedOptionRef;
     MutableLiveData<List<VoteOption>> options;
+    int selectedOption = -1;
 
 
     public VoteViewModel(@NonNull Application application) {
         super(application);
-        ref = FirebaseDatabase.getInstance("https://traxpurim.firebaseio.com/").getReference("votes_options");
+        voteOptionsRef = FirebaseDatabase.getInstance("https://traxpurim.firebaseio.com/").getReference("votes_options");
         options = new MutableLiveData<>();
-        ref.addValueEventListener(new ValueEventListener() {
+        voteOptionsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 options.postValue(toOptions(dataSnapshot));
@@ -44,8 +42,22 @@ public class VoteViewModel extends AndroidViewModel {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplication().getBaseContext(), "Failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication().getBaseContext(), "vote_options update failed", Toast.LENGTH_LONG).show();
+            }
+        });
 
+        selectedOptionRef = FirebaseDatabase.getInstance("https://traxpurim.firebaseio.com/").getReference("votes").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        selectedOptionRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String val = (String)dataSnapshot.getValue();
+                selectedOption = val!=null ? Integer.parseInt(val) : -1;
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplication().getBaseContext(), "votes update failed", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -72,8 +84,10 @@ public class VoteViewModel extends AndroidViewModel {
     }
 
     public void vote(int voteId) {
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance("https://traxpurim.firebaseio.com/").getReference("votes");
-        ref.child(uid).setValue(voteId);
+        selectedOptionRef.setValue(String.valueOf(voteId));
+    }
+
+    public int getVoted(){
+        return selectedOption;
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,22 +52,45 @@ public class VoteOptionFragment extends Fragment {
         TextView tv = res.findViewById(R.id.textView);
         tv.setText(option.getText());
 
+        VoteActivity voteActivity = (VoteActivity)getActivity();
+
 
         SimpleDraweeView sdv = res.findViewById(R.id.vote_image);
         Uri uri = Uri.parse(option.getImageURL());
         sdv.setImageURI(uri);
 
-        ((VoteActivity)getActivity()).animOff();
+        voteActivity.animOff();
 
+        if(voteActivity.getVotedId()== option.getId())
+            res.findViewById(R.id.vote_check_image).setVisibility(getView().VISIBLE);
+        else
+            res.findViewById(R.id.vote_check_image).setVisibility(getView().GONE);
 
         Button voteBtn = res.findViewById(R.id.choose_picture_button);
         voteBtn.setOnClickListener(v->{
-            ((VoteActivity)getActivity()).vote(option.getId());
-//            Toast.makeText(getActivity(), "Thanks for voting!!!", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getActivity(), ThankYouActivity.class));
+            int votedId = voteActivity.getVotedId();
+            if(votedId==-1) vote(option.getId());
+            else if(votedId!=option.getId()) showWarning();
         });
 
         return res;
+    }
+
+    private void vote(int id) {
+        ((VoteActivity) getActivity()).vote(id);
+        startActivity(new Intent(getActivity(), ThankYouActivity.class));
+    }
+
+    private void showWarning() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Change Vote").setMessage("This will replace your previous vote.\nAre you sure?")
+                .setPositiveButton("Change", (dialog, id) -> {
+                    vote(option.getId());
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+        // Create the AlertDialog object and return it
+        builder.create().show();
     }
 
 
