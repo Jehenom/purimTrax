@@ -5,6 +5,7 @@ package com.trax.purim;
  */
 
 import android.app.Application;
+
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class PurimApplication extends Application {

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.trax.purim.LoginActivity">
+
+    <TextView
+        android:id="@+id/login_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22.5dp"
+        android:layout_marginTop="71dp"
+        android:fontFamily="@font/littlelord"
+        android:text="@string/login_with_email"
+        android:textColor="@color/black"
+        android:textSize="50sp"/>
+
+    <TextView
+        android:id="@+id/login_email_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22.5dp"
+        android:layout_marginTop="49dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/email"
+        android:textSize="12sp"
+        android:textColor="@color/battleship_grey"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="111dp" />
+
+    <EditText
+        android:id="@+id/login_email_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="22.5dp"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="-4sp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        tools:hint="your magical email goes here"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="126dp" />
+
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="54.5dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/roundedbutton"
+        android:fontFamily="@font/littlelord"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        />
+
+</LinearLayout>
