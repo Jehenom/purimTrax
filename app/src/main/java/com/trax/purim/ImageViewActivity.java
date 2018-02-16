@@ -90,13 +90,10 @@ public class ImageViewActivity extends AppCompatActivity {
                 .addOnSuccessListener(taskSnapshot -> {
                     runOnUiThread(() -> Toast.makeText(context, "upload was successful",
                                                        Toast.LENGTH_LONG).show());
-                }
-                ).addOnFailureListener(exception -> {
+                }).addOnFailureListener(exception -> {
                     // Handle unsuccessful uploads
                     Toast.makeText(context,"upload was not successful: " + exception.getMessage(),
                                    Toast.LENGTH_LONG).show();
-
-
                 });
         Toast toast = Toast.makeText(context,"UPLOADING", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
