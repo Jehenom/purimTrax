@@ -11,10 +11,13 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.util.UUID;
 
 /**
  * Created by Nadir Elmakias on 1/27/2018.
@@ -26,7 +29,6 @@ public class ImageViewActivity extends AppCompatActivity {
     private String filePath;
     private ImageButton ShareButton;
     private ImageButton DeleteButton;
-    private ImageButton SaveButton;
     private ImageButton UploadButton;
 
     @Override
@@ -51,8 +53,6 @@ public class ImageViewActivity extends AppCompatActivity {
 
         DeleteButton = findViewById(R.id.DeleteButton);
         DeleteButton.setOnClickListener(v -> deleteFile());
-
-        SaveButton = findViewById(R.id.SaveButton);
 
         UploadButton = findViewById(R.id.UploadButton);
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -90,6 +90,8 @@ public class ImageViewActivity extends AppCompatActivity {
                 .addOnSuccessListener(taskSnapshot -> {
                     runOnUiThread(() -> Toast.makeText(context, "upload was successful",
                                                        Toast.LENGTH_LONG).show());
+                    String imageUrl = taskSnapshot.getDownloadUrl().toString();
+                    sendToFirebaseDB(imageUrl);
                 }).addOnFailureListener(exception -> {
                     // Handle unsuccessful uploads
                     Toast.makeText(context,"upload was not successful: " + exception.getMessage(),
@@ -99,6 +101,13 @@ public class ImageViewActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
         finish();
+    }
+
+    private void sendToFirebaseDB(String imageUrl) {
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("uploaded_images").child(String.valueOf(UUID.randomUUID()));
+        myRef.setValue(imageUrl);
     }
 }
 
