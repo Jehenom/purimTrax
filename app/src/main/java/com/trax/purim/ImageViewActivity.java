@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -27,9 +28,10 @@ public class ImageViewActivity extends AppCompatActivity {
 
     private StorageReference mStorageRef;
     private String filePath;
-    private ImageButton ShareButton;
-    private ImageButton DeleteButton;
-    private ImageButton UploadButton;
+    private String fileURL;
+    private ImageButton shareButton;
+    private ImageButton deleteButton;
+    private ImageButton uploadButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +41,46 @@ public class ImageViewActivity extends AppCompatActivity {
         Intent getStringIntent = getIntent();
         Bundle bundle = getStringIntent.getExtras();
         filePath = bundle.getString("image_file");
+        fileURL = bundle.getString("image_url");
+
+        deleteButton = findViewById(R.id.DeleteButton);
+        uploadButton = findViewById(R.id.UploadButton);
+        shareButton = findViewById(R.id.ShareButton);
+
+        if(filePath!=null)
+            initLocalImage();
+        else
+            initWebimage();
+    }
+
+    private void initWebimage() {
+        SimpleDraweeView draweeView = findViewById(R.id.imageView);
+        draweeView.setImageURI(fileURL);
+
+        deleteButton.setVisibility(View.GONE);
+        uploadButton.setVisibility(View.GONE);
+        shareButton.setOnClickListener(v -> {
+            dispatchShareIntent(Uri.parse(fileURL));
+        });
+    }
+
+    private void initLocalImage() {
         Uri uri = Uri.parse("file://"+filePath);
         SimpleDraweeView draweeView = findViewById(R.id.imageView);
         draweeView.setImageURI(uri);
 
-        ShareButton = findViewById(R.id.ShareButton);
-        ShareButton.setOnClickListener(v -> {
+        shareButton.setOnClickListener(v -> {
             Uri photoUri = FileProvider.getUriForFile(ImageViewActivity.this,
                     ImageViewActivity.this.getApplicationContext().getPackageName() +
                             ".fileprovider", new File(filePath));
             dispatchShareIntent(photoUri);
         });
 
-        DeleteButton = findViewById(R.id.DeleteButton);
-        DeleteButton.setOnClickListener(v -> deleteFile());
 
-        UploadButton = findViewById(R.id.UploadButton);
+        deleteButton.setOnClickListener(v -> deleteFile());
+
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        UploadButton.setOnClickListener(v -> uploadToFirebase(ImageViewActivity.this));
+        uploadButton.setOnClickListener(v -> uploadToFirebase(ImageViewActivity.this));
     }
 
     @Override
@@ -65,10 +89,12 @@ public class ImageViewActivity extends AppCompatActivity {
     }
 
     private void deleteFile() {
-        File file = new File(filePath);
-        if(file.delete()){
-            Toast.makeText(ImageViewActivity.this,
-                    "file deleted", Toast.LENGTH_LONG).show();
+        if(filePath!=null && !filePath.isEmpty()) {
+            File file = new File(filePath);
+            if (file.delete()) {
+                Toast.makeText(ImageViewActivity.this,
+                        "file deleted", Toast.LENGTH_LONG).show();
+            }
         }
         finish();
     }

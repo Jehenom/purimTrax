@@ -42,7 +42,7 @@ public class VoteViewModel extends AndroidViewModel {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplication().getBaseContext(), "vote_options update failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(application.getBaseContext(), "vote_options update failed", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -57,7 +57,7 @@ public class VoteViewModel extends AndroidViewModel {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplication().getBaseContext(), "votes update failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(application.getBaseContext(), "votes update failed", Toast.LENGTH_LONG).show();
             }
         });
     }
