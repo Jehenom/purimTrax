@@ -1,7 +1,9 @@
 package com.trax.purim;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
@@ -18,6 +20,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.UUID;
 
 /**
@@ -59,9 +64,41 @@ public class ImageViewActivity extends AppCompatActivity {
 
         deleteButton.setVisibility(View.GONE);
         uploadButton.setVisibility(View.GONE);
-        shareButton.setOnClickListener(v -> {
-            dispatchShareIntent(Uri.parse(fileURL));
-        });
+        shareButton.setVisibility(View.GONE);
+
+//        shareButton.setOnClickListener(v -> {
+//            Bitmap bmp = null;
+//            try {
+//                bmp = GlideApp.with(this).asBitmap().load(fileURL).into(-1,-1).get();
+//                dispatchShareIntent(saveImageToInternalStorage(bmp));
+//
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//       });
+    }
+
+    protected Uri saveImageToInternalStorage(Bitmap bitmap){
+        // Initialize ContextWrapper
+        ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
+        File file = wrapper.getDir("Images",MODE_PRIVATE);
+        file = new File(file, "tempImage"+".jpg");
+
+        try{
+            // Initialize a new OutputStream
+            OutputStream stream =  new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
+            stream.flush();
+            stream.close();
+
+        }catch (IOException e) // Catch the exception
+        {
+            e.printStackTrace();
+        }
+        Uri savedImageURI = Uri.parse(file.getAbsolutePath());
+        return savedImageURI;
     }
 
     private void initLocalImage() {

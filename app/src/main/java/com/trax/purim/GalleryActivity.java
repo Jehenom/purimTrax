@@ -65,15 +65,13 @@ public class GalleryActivity extends AppCompatActivity {
                     .placeholder(R.drawable.placeholder)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
+                    .thumbnail()
                     .error(R.drawable.no_image)
                     .into(holder.image);
-            holder.image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent openImageViewIntent = new Intent(GalleryActivity.this, ImageViewActivity.class);
-                    openImageViewIntent.putExtra("image_url", listOfImages.get(position));
-                    startActivity(openImageViewIntent);
-                }
+            holder.image.setOnClickListener(v -> {
+                Intent openImageViewIntent = new Intent(GalleryActivity.this, ImageViewActivity.class);
+                openImageViewIntent.putExtra("image_url", listOfImages.get(position));
+                startActivity(openImageViewIntent);
             });
         }
 

@@ -15,7 +15,6 @@ import android.widget.Button;
 import com.trax.purim.viewmodel.MainViewModel;
 import com.wooplr.spotlight.SpotlightView;
 
-import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,6 +94,6 @@ public class MainActivity extends AppCompatActivity {
                 .dismissOnTouch(true)
                 .dismissOnBackPress(true)
                 .enableDismissAfterShown(true)
-                .usageId(BuildConfig.BUILD_TYPE.equals("debug")? UUID.randomUUID().toString():String.valueOf(view.getId()));
+                .usageId(String.valueOf(view.getId()));
     }
 }
